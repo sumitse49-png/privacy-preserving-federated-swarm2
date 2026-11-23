@@ -1,0 +1,67 @@
+project:
+  name: "Privacy-Preserving Federated Swarm Intelligence"
+  organization: "Zaalima Development Pvt. Ltd."
+  sop_version: "1.1"
+  project_id: "Project 2"
+  team:
+    lead: "Sumeet (Cryptography & Architecture)"
+    edge_specialist: "Janvhi (Edge Network & Data Fragmentation)"
+    privacy_specialist: "Sanskar (Differential Privacy, BFT & Dashboard)"
+
+swarm:
+  total_edge_nodes: 100
+  clients_per_round: 10
+  node_types:
+    mobile_phones: 50
+    iot_sensors: 35
+    edge_gateways: 15
+  dropout_probability: 0.05
+
+data:
+  dataset_name: "Synthetic Edge-Sensory Benchmark"
+  feature_dim: 16
+  num_classes: 10
+  samples_per_client: 200
+  dirichlet_alpha: 0.3
+  partition_type: "non_iid_dirichlet"
+
+model:
+  architecture: "DeepNeuralNetwork"
+  input_dim: 16
+  hidden_dims: [64, 32]
+  output_dim: 10
+  activation: "relu"
+  output_activation: "softmax"
+  loss: "cross_entropy"
+
+training:
+  rounds: 20
+  local_epochs: 3
+  batch_size: 32
+  learning_rate: 0.02
+  momentum: 0.9
+
+cryptography_fhe:
+  enabled: true
+  scheme: "CKKS_Homomorphic_Averaging"
+  key_bits: 2048
+  scaling_factor: 10000.0
+  zero_knowledge_verified: true
+  quantization_bits: 8
+  sparsification_ratio: 0.8
+
+differential_privacy:
+  enabled: true
+  l2_clip_norm: 1.0
+  target_epsilon: 2.0
+  target_delta: 0.00001
+  noise_multiplier: 1.12
+  mechanism: "Gaussian"
+
+byzantine_fault_tolerance:
+  enabled: true
+  defense_method: "multi_krum"
+  malicious_node_ratio: 0.2
+  attack_type: "label_flipping_and_sign_flip"
+  krum_neighbors_offset: 2
+  trimmed_mean_beta: 0.2

@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  coordinator:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.coordinator
+    container_name: federated-swarm-coordinator
+    environment:
+      - PYTHONUNBUFFERED=1
+      - SWARM_MODE=COORDINATOR
+    volumes:
+      - ../data:/app/data
+    networks:
+      - swarm-net
+
+  dashboard:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.dashboard
+    container_name: federated-swarm-dashboard
+    ports:
+      - "8501:8501"
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ../data:/app/data
+    networks:
+      - swarm-net
+    depends_on:
+      - coordinator
+
+  edge-node-mobile-1:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.edge_node
+    container_name: edge-client-mobile-1
+    environment:
+      - NODE_ID=1
+      - NODE_TYPE=mobile_phone
+    networks:
+      - swarm-net
+
+  edge-node-iot-2:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.edge_node
+    container_name: edge-client-iot-2
+    environment:
+      - NODE_ID=2
+      - NODE_TYPE=iot_sensor
+    networks:
+      - swarm-net
+
+  edge-node-gateway-3:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.edge_node
+    container_name: edge-client-gateway-3
+    environment:
+      - NODE_ID=3
+      - NODE_TYPE=edge_gateway
+    networks:
+      - swarm-net
+
+networks:
+  swarm-net:
+    driver: bridge
