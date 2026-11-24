@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "privacy-preserving-federated-swarm"
+version = "1.0.0"
+authors = [
+    { name = "Sumeet" },
+    { name = "Janvhi" },
+    { name = "Sanskar" }
+]
+description = "Privacy-Preserving Federated Swarm Intelligence - Zaalima Development SOP 1.1"
+readme = "README.md"
+requires-python = ">=3.8"
